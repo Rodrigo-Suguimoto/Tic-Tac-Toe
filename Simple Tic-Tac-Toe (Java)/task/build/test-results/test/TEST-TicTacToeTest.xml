@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TicTacToeTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-05T10:52:56" hostname="MacBook-Pro.local" time="0.13">
+<testsuite name="TicTacToeTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-06T10:35:30" hostname="MacBook-Pro.local" time="0.135">
   <properties/>
-  <testcase name="start" classname="TicTacToeTest" time="0.13"/>
+  <testcase name="start" classname="TicTacToeTest" time="0.135"/>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
 > O_OXXO_XX
