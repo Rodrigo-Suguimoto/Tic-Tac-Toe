@@ -1,0 +1,26 @@
+type: code
+files:
+  - name: src/Main.java
+    visible: true
+    text: |-
+      import java.util.Scanner;
+      
+      public class Main {
+          public static void main(String[] args) {
+              Scanner scanner = new Scanner(System.in);
+      
+              // Input number
+              int n = scanner.nextInt();
+      
+              // Start a loop from 1 to n (inclusive)
+              for (int i = 1; i <= n; i++) {
+                  // Write your code here
+      
+              }
+          }
+      }
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/41544#comment
+status: Solved
+record: -1
+submission_language: java17

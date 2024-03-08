@@ -1,0 +1,57 @@
+<h2>Break and continue. Branching</h2>
+<div class="step-text">
+<p>In certain cases, you may want to alter the standard behavior of a loop. The Java programming language provides <strong><a class="theory-lookup" href="/learn/step/3503" rel="noopener noreferrer nofollow" target="_blank" title="A branching statement in Java is a control flow mechanism that allows for a departure from the standard sequence of statement execution. | It enables the program to alter the flow of a loop or conditional statement based on a specific condition. The two main branching statements in Java are 'break' and 'continue'. The 'break' statement terminates the current loop or switch case, while the 'continue' statement skips the current iteration of a loop. Proper use of these statements is crucial for writing clear, organized, and efficient code.">branching statements</a></strong> for this purpose that can terminate a loop or skip some of its <a class="theory-lookup" href="/learn/step/3574" rel="noopener noreferrer nofollow" target="_blank" title="Iteration in Java refers to the process of repeatedly executing a block of code until a specific condition is met. | This is typically accomplished through loops, which are control structures that enable the program to cycle through a series of statements multiple times. Java offers various loop types, such as while, do-while, for, and for-each loops, each designed to cater to different use cases and scenarios. Iteration is essential for traversing data structures, such as arrays and collections, and performing operations on their elements.">iterations</a>. Proper use of these statements is essential for writing clear, organized, and efficient code.</p><h5 id="the-break-statement">The break statement</h5><p>The <strong>break</strong> statement has two uses:</p><ul><li><p>it terminates the current loop of any type (<strong>for</strong>, <strong>while</strong>, <strong>do-while</strong>);</p></li><li><p>it terminates a case in the <strong>switch</strong> statement;</p></li></ul><p>In this topic, we will learn how to use it to terminate loops.</p><p>The following example demonstrates a loop that includes one <code class="language-java">break</code>.</p><pre><code class="language-java">int i = 10;
+while (true) { // the condition to continue the loop
+    if (i == 0) { // the condition to perform the break that stops this loop 
+        break;
+    }
+    i--;
+}</code></pre><p>In the code above, the condition to continue the loop is always <code class="language-java">true</code>, but it will be successfully stopped when the variable <code class="language-java">i</code> becomes <code class="language-java">0</code> through the use of <code class="language-java">break</code> inside the conditional statement.</p><p>The <strong>break</strong> statement terminates only the loop in which it is currently located. If this loop is performed inside another loop, the outer loop won't be stopped.</p><p>The following code prints a ladder of numbers.</p><pre><code class="language-java">for (int i = 0; i &lt; 10; i++) {
+    for (int j = 0; j &lt; 10; j++) {
+        System.out.print(j + " ");
+        if (i == j) {
+            break;
+        }
+    }
+    System.out.println();
+}</code></pre><p>The <a class="theory-lookup" href="/learn/step/16479" rel="noopener noreferrer nofollow" target="_blank" title="In Java, the break statement is a branching statement used to alter the standard behavior of a loop or a switch statement. | It is used to terminate the current loop of any type, including for, while, and do-while loops. Additionally, it can terminate a case in the switch statement. Proper use of the break statement is essential for writing clear, organized, and efficient code.">break statement</a> can't stop the outer loop (with variable <code class="language-java">i</code>) and the code prints:</p><pre><code class="language-java">0 
+0 1 
+0 1 2 
+0 1 2 3 
+0 1 2 3 4 
+0 1 2 3 4 5 
+0 1 2 3 4 5 6 
+0 1 2 3 4 5 6 7 
+0 1 2 3 4 5 6 7 8 
+0 1 2 3 4 5 6 7 8 9 </code></pre><p>To stop the outer loop we could declare a Boolean variable <code class="language-java">stopped</code> and use it as a special <a class="theory-lookup" href="/learn/step/3516" rel="noopener noreferrer nofollow" target="_blank" title="In Java, boolean is a data type that has only two possible values: true and false. | It is also known as the logical type and is commonly used to represent something that has only two opposite states, like on or off, yes or no. Variables of the boolean type are often used to build logical expressions using logical operators, such as not, and, or, and xor. These operators allow for straightforward comparison of numeric values and can be seamlessly integrated into mixed expressions with arithmetic operators.">Boolean</a> flag.</p><pre><code class="language-java">boolean stopped = false;
+for (int i = 0; i &lt; 10 &amp;&amp; !stopped; i++) {
+    for (int j = 0; j &lt; 10; j++) {
+        System.out.print(j + " ");
+        if (i == j) {
+            stopped = true;
+            break;
+        }
+     }
+    System.out.println();
+}</code></pre><p>Now, the program's output is not the same:</p><pre><code class="language-java">0</code></pre><p>There is another way to stop the outer loop: the labeled break operator. However, it's not good practice to use it. Google it if you are really interested.</p><p> Here's an example demonstrating the use of <code class="language-java">break</code> with a label:</p><pre><code class="language-java">outerLoop:
+for (int i = 0; i &lt; 10; i++) {
+    for (int j = 0; j &lt; 10; j++) {
+        System.out.print(j + " ");
+        if (i == j) {
+            break outerLoop; // Break out of both loops.
+        }
+    }
+    System.out.println();
+}</code></pre><p> </p><h5 id="the-continue-statement">The continue statement</h5><p>It causes a loop to skip the current iteration and go to the next one.</p><p>This statement can be used inside any kind of loop.</p><ul><li><p>inside the <strong><a class="theory-lookup" href="/learn/step/3505" rel="noopener noreferrer nofollow" target="_blank" title="A 'for-loop' in Java is a control flow statement that allows you to repeatedly execute a block of code a specified number of times. | It consists of three parts: initialization, condition, and modification. The initialization part is executed once at the beginning of the loop, the condition part is evaluated before each iteration to determine whether to continue the loop, and the modification part is executed at the end of each iteration to update the loop variable.">for-loop</a></strong>, the <a class="theory-lookup" href="/learn/step/9955" rel="noopener noreferrer nofollow" target="_blank" title="In Java, the 'continue' statement is a loop control statement that allows the program to skip the current iteration of a loop and move on to the next iteration. | It is used to bypass a specific part of the loop's code when a certain condition is met. The 'continue' statement can be used in all types of loops (for, while, do-while) and it immediately moves control to the increment/decrement statement in for-loops and to the condition in while and do-while loops.">continue statement</a> causes control to immediately move to the increment/decrement statement;</p></li><li><p>inside the <strong>while</strong> or<strong> do-while loop</strong>, control immediately moves to the condition.</p></li></ul><p>In the following example, a <a class="theory-lookup" href="/learn/step/3521" rel="noopener noreferrer nofollow" target="_blank" title="A sequence in Java refers to the order in which statements are executed in a program. | It is the most common and straightforward sequence of statements, where each statement is executed in the order it is written, from top to bottom. This sequential flow is the foundation of Java programming, allowing for the execution of one action after another.">sequence</a> of numbers is output. Odd numbers are skipped.</p><pre><code class="language-java">int n = 10;
+for (int i = 0; i &lt; n; i++) {
+    if (i % 2 != 0) {
+        continue;
+    }
+    System.out.print(i + " ");
+}</code></pre><p>The output:</p><pre><code class="language-java">0 2 4 6 8</code></pre><p>The <strong>continue </strong>statement and the <strong>break </strong>statement only affect the loop in which they are located. The <strong>continue </strong>statement cannot skip the current iteration of the outer loop.</p><p>Often, we can rewrite our loop without using the continue statement. Here is an example:</p><pre><code class="language-java">int n = 10;
+for (int i = 0; i &lt; n; i++) { 
+    if (i % 2 == 0) {
+        System.out.print(i + " ");
+    } 
+}</code></pre><p>The result is the same as above, but the code became shorter and more readable.</p><p>It is important to note that the widespread use of branching statements leads to poorly-structured code because conditions in your loops are not actually what you need to do. So, use them wisely — only when it helps to make code shorter and easier to understand for humans.</p><h5 id="conclusion">Conclusion</h5><p>The <strong>break </strong>statement allows for the termination of loops or switch cases based on certain conditions. It can be a valuable tool for controlling the flow of your program, especially when you need to exit loops prematurely. On the other hand, the continue statement is used to skip the current iteration of a loop and proceed to the next one. It is useful for situations where you want to skip specific iterations based on certain conditions. However, it's essential to exercise caution when using these statements. Overuse of branching statements can lead to code that is challenging to read and maintain. Therefore, it's recommended to employ them sparingly, primarily when it enhances code clarity and conciseness.</p>
+</div>
