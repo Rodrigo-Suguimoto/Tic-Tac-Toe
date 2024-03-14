@@ -30,10 +30,14 @@ public class Main {
             }
         }
 
-        findWinner(ticTacToeMatrix);
+        if (!isNumberOfXAndOValid(ticTacToeMatrix)) {
+            System.out.println("Impossible");
+        } else {
+            findWinner(ticTacToeMatrix);
+        }
     }
 
-    public static String findWinner(char[][] ticTacToeMatrix) {
+    public static void findWinner(char[][] ticTacToeMatrix) {
         int counterXFirstColumn = 0;
         int counterXSecondColumn = 0;
         int counterXThirdColumn = 0;
@@ -42,35 +46,116 @@ public class Main {
         int counterOSecondColumn = 0;
         int counterOThirdColumn = 0;
 
-        for (int row = 0; row < ticTacToeMatrix.length; row++) {
-            if (ticTacToeMatrix[row][0] == 'X') {
+        int counterXFirstRow = 0;
+        int counterXSecondRow = 0;
+        int counterXThirdRow = 0;
+
+        int counterOFirstRow = 0;
+        int counterOSecondRow = 0;
+        int counterOThirdRow = 0;
+
+        final int GRID_LIMIT = 3;
+        for (int i = 0; i < GRID_LIMIT; i++) {
+
+            // CHECK WINNERS BY COLUMN
+            // CHECK 'X'
+            if (ticTacToeMatrix[i][0] == 'X') {
                 counterXFirstColumn++;
             }
-            if (ticTacToeMatrix[row][1] == 'X') {
+            if (ticTacToeMatrix[i][1] == 'X') {
                 counterXSecondColumn++;
             }
-            if (ticTacToeMatrix[row][2] == 'X') {
+            if (ticTacToeMatrix[i][2] == 'X') {
                 counterXThirdColumn++;
             }
 
-            if (ticTacToeMatrix[row][0] == 'O') {
+            // CHECK 'O'
+            if (ticTacToeMatrix[i][0] == 'O') {
                 counterOFirstColumn++;
             }
-            if (ticTacToeMatrix[row][1] == 'O') {
+            if (ticTacToeMatrix[i][1] == 'O') {
                 counterOSecondColumn++;
             }
-            if (ticTacToeMatrix[row][2] == 'O') {
+            if (ticTacToeMatrix[i][2] == 'O') {
                 counterOThirdColumn++;
+            }
+
+            // CHECK WINNERS BY ROW
+            // CHECK 'X'
+            if (ticTacToeMatrix[0][i] == 'X') {
+                counterXFirstRow++;
+            }
+            if (ticTacToeMatrix[1][i] == 'X') {
+                counterXSecondRow++;
+            }
+            if (ticTacToeMatrix[2][i] == 'X') {
+                counterXThirdRow++;
+            }
+
+            // CHECK 'O'
+            if (ticTacToeMatrix[0][i] == 'O') {
+                counterOFirstRow++;
+            }
+            if (ticTacToeMatrix[1][i] == 'O') {
+                counterOSecondRow++;
+            }
+            if (ticTacToeMatrix[2][i] == 'O') {
+                counterOThirdRow++;
             }
         }
 
-        System.out.println("Counter X");
-        System.out.print(counterXFirstColumn + " " + counterXSecondColumn + " " + counterXThirdColumn);
-        System.out.println();
+        boolean isXWinner = false;
+        if (counterXFirstColumn == 3 || counterXSecondColumn == 3
+                || counterXThirdColumn == 3 || counterXFirstRow == 3
+                || counterXSecondRow == 3 || counterXThirdRow == 3) {
+            isXWinner = true;
+        }
 
-        System.out.println("Counter O");
-        System.out.print(counterOFirstColumn + " " + counterOSecondColumn + " " + counterOThirdColumn);
+        boolean isOWinner = false;
+        if (counterOFirstColumn == 3 || counterOSecondColumn == 3
+                || counterOThirdColumn == 3 || counterOFirstRow == 3
+                || counterOSecondRow == 3 || counterOThirdRow == 3) {
+            isOWinner = true;
+        }
 
-        return "winner";
+        if (isXWinner && isOWinner) {
+            System.out.println("Impossible");
+        } else if (isXWinner) {
+            System.out.println("");
+        }
     }
+
+    public static boolean areThereEmptyCells(char[][] ticTacToeMatrix) {
+        int counterOfEmptyCells = 0;
+
+        for (int i = 0; i < ticTacToeMatrix.length; i++) {
+            for (int j = 0; j < ticTacToeMatrix[i].length; j++) {
+                if (ticTacToeMatrix[i][j] == '_') {
+                    counterOfEmptyCells++;
+                }
+            }
+        }
+
+        return counterOfEmptyCells != 0;
+    }
+
+    public static boolean isNumberOfXAndOValid(char[][] ticTacToeMatrix) {
+        int counterOfOs = 0;
+        int counterOfXs = 0;
+
+        for (int i = 0; i < ticTacToeMatrix.length; i++) {
+            for (int j = 0; j < ticTacToeMatrix[i].length; j++) {
+                if (ticTacToeMatrix[i][j] == 'O') {
+                    counterOfOs++;
+                }
+
+                if (ticTacToeMatrix[i][j] == 'X') {
+                    counterOfXs++;
+                }
+            }
+        }
+
+        return Math.abs(counterOfXs - counterOfOs) < 2;
+    }
+
 }
