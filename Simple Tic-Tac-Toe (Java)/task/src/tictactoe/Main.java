@@ -104,24 +104,59 @@ public class Main {
             }
         }
 
+        char whoWonInDiagonal = findWinnerInDiagonal(ticTacToeMatrix);
         boolean isXWinner = false;
         if (counterXFirstColumn == 3 || counterXSecondColumn == 3
                 || counterXThirdColumn == 3 || counterXFirstRow == 3
-                || counterXSecondRow == 3 || counterXThirdRow == 3) {
+                || counterXSecondRow == 3 || counterXThirdRow == 3
+                || whoWonInDiagonal == 'X') {
             isXWinner = true;
         }
 
         boolean isOWinner = false;
         if (counterOFirstColumn == 3 || counterOSecondColumn == 3
                 || counterOThirdColumn == 3 || counterOFirstRow == 3
-                || counterOSecondRow == 3 || counterOThirdRow == 3) {
+                || counterOSecondRow == 3 || counterOThirdRow == 3
+                || whoWonInDiagonal == 'O') {
             isOWinner = true;
         }
+
 
         if (isXWinner && isOWinner) {
             System.out.println("Impossible");
         } else if (isXWinner) {
-            System.out.println("");
+            System.out.println("X wins");
+        } else if (isOWinner) {
+            System.out.println("O wins");
+        } else if (areThereEmptyCells(ticTacToeMatrix)) {
+            System.out.println("Game not finished");
+        } else {
+            System.out.println("Draw");
+        }
+    }
+
+    public static char findWinnerInDiagonal(char[][] ticTacToeMatrix) {
+        char whoWonInDiagonal = ' ';
+        if (conditionsToWinInDiagonal(ticTacToeMatrix, 'X') == 'X') {
+            whoWonInDiagonal = 'X';
+        } else if (conditionsToWinInDiagonal(ticTacToeMatrix, 'O') == 'O') {
+            whoWonInDiagonal = 'O';
+        }
+
+        return whoWonInDiagonal;
+    }
+
+    public static char conditionsToWinInDiagonal(char[][] ticTacToeMatrix, char player) {
+        if (ticTacToeMatrix[0][0] == player
+                && ticTacToeMatrix[1][1] == player
+                && ticTacToeMatrix[2][2] == player) {
+            return player;
+        } else if (ticTacToeMatrix[0][2] == player
+                && ticTacToeMatrix[1][1] == player
+                && ticTacToeMatrix[2][0] == player) {
+            return player;
+        } else {
+            return ' ';
         }
     }
 
