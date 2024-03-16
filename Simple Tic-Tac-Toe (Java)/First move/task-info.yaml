@@ -299,5 +299,30 @@ files:
       }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/5400#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #2
+
+    The first field is correct, but the second is not
+
+    Please find below the output of your program during this failed test.
+    Note that the &#39;&gt;&#39; character indicates the beginning of the input line.
+
+    ---
+
+    &gt; _XXOO_OX_
+    ---------
+    |   X X |
+    | O O   |
+    | O X   |
+    ---------
+    &gt; 4 1
+    Coordinates should be from 1 to 3!
+    ---------
+    |   X X |
+    | O O   |
+    | O X   |
+    ---------
+  time: "Sat, 16 Mar 2024 14:32:46 UTC"
 record: -1

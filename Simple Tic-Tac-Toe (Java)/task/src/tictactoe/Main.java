@@ -6,35 +6,91 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.next();
-        final int GRID_LIMIT = 9;
+        String matrixInput = scanner.nextLine();
         char[][] ticTacToeMatrix = new char[3][3];
-
-        System.out.println("---------"); // Print first divider
-
-        for (int i = 0; i < GRID_LIMIT; i += 3) {
-            System.out.printf("| %c %c %c |\n", userInput.charAt(i), userInput.charAt(i+1), userInput.charAt(i+2));
-        }
-
-        System.out.println("---------"); // Print second divider
 
         for (int i = 0; i < ticTacToeMatrix.length; i++) {
             for (int j = 0; j < ticTacToeMatrix[i].length; j++) {
                 if (i == 0) {
-                    ticTacToeMatrix[i][j] = userInput.charAt(i + j);
+                    ticTacToeMatrix[i][j] = matrixInput.charAt(i + j);
                 } else if (i == 1) {
-                    ticTacToeMatrix[i][j] = userInput.charAt(j + 3);
+                    ticTacToeMatrix[i][j] = matrixInput.charAt(j + 3);
                 } else {
-                    ticTacToeMatrix[i][j] = userInput.charAt(j + 6);
+                    ticTacToeMatrix[i][j] = matrixInput.charAt(j + 6);
                 }
             }
         }
 
-        if (!isNumberOfXAndOValid(ticTacToeMatrix)) {
-            System.out.println("Impossible");
+        printTicTacToeMatrix(ticTacToeMatrix);
+
+        String playerMove = scanner.nextLine();
+        placeUserMove(ticTacToeMatrix, playerMove);
+        printTicTacToeMatrix(ticTacToeMatrix);
+
+//        if (!isNumberOfXAndOValid(ticTacToeMatrix)) {
+//            System.out.println("Impossible");
+//        } else {
+//            findWinner(ticTacToeMatrix);
+//        }
+    }
+
+    public static char checkIfItsEmpty(char cell) {
+        return cell == '_' ? ' ' : cell;
+    }
+
+    public static boolean placeUserMove(char[][] ticTacToeMatrix, String userMove) {
+        int firstCoordinateZeroIndex;
+        int secondCoordinateZeroIndex;
+
+        if (userMove.matches("^\\d \\d$")) {
+            String[] coordinates = userMove.split(" ");
+            firstCoordinateZeroIndex = Integer.parseInt(coordinates[0]) - 1;
+            secondCoordinateZeroIndex = Integer.parseInt(coordinates[1]) - 1;
         } else {
-            findWinner(ticTacToeMatrix);
+            System.out.println("You should enter numbers!");
+            return false;
         }
+
+        if (firstCoordinateZeroIndex > 2 || secondCoordinateZeroIndex > 2) {
+            System.out.println("Coordinates should be from 1 to 3!");
+            return false;
+        }
+
+        if (ticTacToeMatrix[firstCoordinateZeroIndex][secondCoordinateZeroIndex] != '_') {
+            System.out.println("This cell is occupied! Choose another one!");
+            return false;
+        } else {
+            ticTacToeMatrix[firstCoordinateZeroIndex][secondCoordinateZeroIndex] = 'X';
+            return true;
+        }
+    }
+
+    public static String transform2DArrayIntoString(char[][] ticTacToeMatrix) {
+        StringBuilder ticTacToe = new StringBuilder();
+        for (int i = 0; i < ticTacToeMatrix.length; i++) {
+            for (int j = 0; j < ticTacToeMatrix[i].length; j++) {
+                ticTacToe.append(ticTacToeMatrix[i][j]);
+            }
+        }
+
+        return ticTacToe.toString();
+    }
+
+    public static void printTicTacToeMatrix(char[][] ticTacToeMatrix) {
+        String ticTacToeMatrixToString = transform2DArrayIntoString(ticTacToeMatrix);
+
+        final int GRID_LIMIT = 9;
+
+        System.out.println("---------"); // Print first divider
+
+        for (int i = 0; i < GRID_LIMIT; i += 3) {
+            System.out.printf("| %c %c %c |\n", checkIfItsEmpty(ticTacToeMatrixToString.charAt(i)),
+                    checkIfItsEmpty(ticTacToeMatrixToString.charAt(i+1)),
+                    checkIfItsEmpty(ticTacToeMatrixToString.charAt(i+2)));
+        }
+
+        System.out.println("---------"); // Print second divider
+
     }
 
     public static void findWinner(char[][] ticTacToeMatrix) {
