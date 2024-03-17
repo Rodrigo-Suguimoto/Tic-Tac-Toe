@@ -21,10 +21,16 @@ public class Main {
             }
         }
 
+        // Print original matrix for the first time
         printTicTacToeMatrix(ticTacToeMatrix);
 
-        String playerMove = scanner.nextLine();
-        placeUserMove(ticTacToeMatrix, playerMove);
+        boolean isValidMove = true;
+        do {
+            String playerMove = scanner.nextLine();
+            isValidMove = placeUserMove(ticTacToeMatrix, playerMove);
+        } while (!isValidMove);
+
+        // Print new matrix considering the user's input
         printTicTacToeMatrix(ticTacToeMatrix);
 
 //        if (!isNumberOfXAndOValid(ticTacToeMatrix)) {
