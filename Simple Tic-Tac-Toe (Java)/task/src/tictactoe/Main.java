@@ -6,20 +6,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String matrixInput = scanner.nextLine();
         char[][] ticTacToeMatrix = new char[3][3];
-
-        for (int i = 0; i < ticTacToeMatrix.length; i++) {
-            for (int j = 0; j < ticTacToeMatrix[i].length; j++) {
-                if (i == 0) {
-                    ticTacToeMatrix[i][j] = matrixInput.charAt(i + j);
-                } else if (i == 1) {
-                    ticTacToeMatrix[i][j] = matrixInput.charAt(j + 3);
-                } else {
-                    ticTacToeMatrix[i][j] = matrixInput.charAt(j + 6);
-                }
-            }
-        }
+        initialFillOfTicTacToe(ticTacToeMatrix);
 
         // Print original matrix for the first time
         printTicTacToeMatrix(ticTacToeMatrix);
@@ -38,6 +26,14 @@ public class Main {
 //        } else {
 //            findWinner(ticTacToeMatrix);
 //        }
+    }
+
+    public static void initialFillOfTicTacToe(char[][] ticTacToeMatrix) {
+        for (int i = 0; i < ticTacToeMatrix.length; i++) {
+            for (int j = 0; j < ticTacToeMatrix[i].length; j++) {
+                ticTacToeMatrix[i][j] = ' ';
+            }
+        }
     }
 
     public static char checkIfItsEmpty(char cell) {
@@ -62,7 +58,7 @@ public class Main {
             return false;
         }
 
-        if (ticTacToeMatrix[firstCoordinateZeroIndex][secondCoordinateZeroIndex] != '_') {
+        if (ticTacToeMatrix[firstCoordinateZeroIndex][secondCoordinateZeroIndex] != ' ') {
             System.out.println("This cell is occupied! Choose another one!");
             return false;
         } else {
