@@ -13,19 +13,28 @@ public class Main {
         printTicTacToeMatrix(ticTacToeMatrix);
 
         boolean isValidMove = true;
+        String gameResult;
+        int moveCounter = 1;
         do {
             String playerMove = scanner.nextLine();
-            isValidMove = placeUserMove(ticTacToeMatrix, playerMove);
-        } while (!isValidMove);
+            isValidMove = placeUserMove(ticTacToeMatrix, playerMove, moveCounter);
 
-        // Print new matrix considering the user's input
-        printTicTacToeMatrix(ticTacToeMatrix);
+            gameResult = findWinner(ticTacToeMatrix);
 
-//        if (!isNumberOfXAndOValid(ticTacToeMatrix)) {
-//            System.out.println("Impossible");
-//        } else {
-//            findWinner(ticTacToeMatrix);
-//        }
+            // Print new matrix considering the user's input
+            printTicTacToeMatrix(ticTacToeMatrix);
+
+            if (isValidMove) {
+                moveCounter++;
+            }
+
+            if (gameResult != "Game not finished") {
+                System.out.println(gameResult);
+                break;
+            }
+
+        } while (isValidMove || gameResult.equals("Game not finished"));
+
     }
 
     public static void initialFillOfTicTacToe(char[][] ticTacToeMatrix) {
@@ -40,7 +49,7 @@ public class Main {
         return cell == '_' ? ' ' : cell;
     }
 
-    public static boolean placeUserMove(char[][] ticTacToeMatrix, String userMove) {
+    public static boolean placeUserMove(char[][] ticTacToeMatrix, String userMove, int moveCounter) {
         int firstCoordinateZeroIndex;
         int secondCoordinateZeroIndex;
 
@@ -62,7 +71,8 @@ public class Main {
             System.out.println("This cell is occupied! Choose another one!");
             return false;
         } else {
-            ticTacToeMatrix[firstCoordinateZeroIndex][secondCoordinateZeroIndex] = 'X';
+            char xOrO = moveCounter % 2 == 1 ? 'X' : 'O';
+            ticTacToeMatrix[firstCoordinateZeroIndex][secondCoordinateZeroIndex] = xOrO;
             return true;
         }
     }
@@ -95,7 +105,7 @@ public class Main {
 
     }
 
-    public static void findWinner(char[][] ticTacToeMatrix) {
+    public static String findWinner(char[][] ticTacToeMatrix) {
         int counterXFirstColumn = 0;
         int counterXSecondColumn = 0;
         int counterXThirdColumn = 0;
@@ -181,15 +191,15 @@ public class Main {
 
 
         if (isXWinner && isOWinner) {
-            System.out.println("Impossible");
+            return "Impossible";
         } else if (isXWinner) {
-            System.out.println("X wins");
+            return "X wins";
         } else if (isOWinner) {
-            System.out.println("O wins");
+            return "O wins";
         } else if (areThereEmptyCells(ticTacToeMatrix)) {
-            System.out.println("Game not finished");
+            return "Game not finished";
         } else {
-            System.out.println("Draw");
+            return "Draw";
         }
     }
 
@@ -223,7 +233,7 @@ public class Main {
 
         for (int i = 0; i < ticTacToeMatrix.length; i++) {
             for (int j = 0; j < ticTacToeMatrix[i].length; j++) {
-                if (ticTacToeMatrix[i][j] == '_') {
+                if (ticTacToeMatrix[i][j] == ' ') {
                     counterOfEmptyCells++;
                 }
             }
